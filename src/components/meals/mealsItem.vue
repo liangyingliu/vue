@@ -1,7 +1,6 @@
 <script setup>
 import conter from '../UI/conter.vue'
 const props = defineProps(["meals"])
-console.log(props);
 </script>
 <template>
     <div class="item">
@@ -16,7 +15,7 @@ console.log(props);
                     <span class="rmb">￥</span>
                     <span class="math">{{ props.meals.price }}</span>
                 </div>
-                <conter></conter>   
+                <conter :meals="props.meals"></conter>   
             </div>
        </div>
     </div>

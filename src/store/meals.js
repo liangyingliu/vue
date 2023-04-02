@@ -60,6 +60,56 @@ export const useMealsStore = defineStore("meals", {
     getters: {
         filterMeals: (state)=>{
             return state.data.filter((item)=>item.title.indexOf(state.keyword)!=-1)
+        },
+
+        // 获取购物车中的所有商品
+        cartMeals: (state) => {
+            return state.data.filter((item) => item.count > 0)
+        },
+
+        // 获取购物车中商品的总数量
+        totalCount: (state) => {
+            // 如果购物车中没有商品直接返回0
+            if (state.cartMeals.length <= 0) return 0
+
+            // 购物车中有商品，计算商品的总数量
+            return state.cartMeals.reduce(
+                (result, item) => result + item.count,
+                0
+            )
+        },
+
+        // 获取购物车中商品的总价格
+        amount: (state) => {
+            // 如果购物车中没有商品直接返回0
+            if (state.cartMeals.length <= 0) return 0
+
+            // 购物车中有商品，计算商品的总数量
+            return state.cartMeals.reduce(
+                (result, item) => result + item.count * item.price,
+                0
+            )
+        }
+    },
+    
+    actions: {
+        addMealToCart(meal) {
+            // 修改购买食物的数量
+            // meal还没有添加到购物车中
+            if (isNaN(meal.count)) {
+                meal.count = 0
+            }
+
+            meal.count++
+        },
+
+        subMealFromCart(meal) {
+            if (isNaN(meal.count) || meal.count <= 0) return
+            meal.count--
+        },
+
+        clearCart() {
+            this.cartMeals.forEach((item) => (item.count = 0))
         }
     }
 
