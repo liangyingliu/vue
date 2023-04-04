@@ -3,11 +3,13 @@ import {ref} from "vue"
 import bag from "../../assets/bag.png"
 import { useMealsStore } from "../../store/meals";
 import Mask from "../UI/mask.vue";
+import Cartdetail from "./cartdetail.vue";
 const meals = useMealsStore()
 const showditial=ref(false)
 </script>
 <template>
     <Mask :is-show="showditial" @hide="showditial=false"></Mask>
+    <Cartdetail :is-show="showditial"></Cartdetail>
     <div class="cartbar">
         <div class="all">
             <div class="bag">
@@ -19,12 +21,13 @@ const showditial=ref(false)
                 <div class="h" v-if="meals.totalCount!=0">
                     <p class="rmb">￥</p>
                     <p @click="showditial=~showditial" class="have_goods">{{ meals.amount }}</p>
-                </div>
+                </div>ACAF
                
             </div>
             <button class="n_goods" v-if="meals.totalCount==0">去结算</button>
             <button class="h_goods" v-if="meals.totalCount!=0">去结算</button>
         </div>
+
     </div>
 </template>
 <style scoped>
@@ -36,7 +39,7 @@ const showditial=ref(false)
     bottom: 20rem;
     left: 20rem;
     border-radius: 30rem;
-    z-index: 9999;
+    z-index: 99999;
 }
 img{
     width: 50rem;
